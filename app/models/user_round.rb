@@ -1,0 +1,2 @@
+class UserRound < ApplicationRecord
+end
