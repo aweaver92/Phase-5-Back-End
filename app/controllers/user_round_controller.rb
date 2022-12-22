@@ -1,0 +1,2 @@
+class UserRoundController < ApplicationController
+end

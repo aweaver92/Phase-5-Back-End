@@ -1,0 +1,2 @@
+class ApesController < ApplicationController
+end
