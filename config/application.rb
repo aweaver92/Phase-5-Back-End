@@ -18,6 +18,10 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+class Application < Rails::Application
+  config.autoload_paths << "#{Rails.root}/lib"
+end
+
 module ExampleProject
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

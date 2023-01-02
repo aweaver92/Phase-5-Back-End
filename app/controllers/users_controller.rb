@@ -1,31 +1,24 @@
 class UsersController < ApplicationController
-    def update
-      # Find the user record to update
-      user = User.find(params[:id])
 
-      # Update the user's username
-      if user.update(username: params[:username])
-        # Redirect to the usernames page with a success message
-        flash[:success] = "Username updated successfully"
-        redirect_to usernames_path
-      else
-        # Redirect to the usernames page with an error message
-        flash[:error] = "There was an error updating your username"
-        redirect_to usernames_path
-      end
-    end
+  def create
+    @user = User.find_by( email: params[:email])
+    if @user
+      logged_user = JWT.encode({user: @user.id}, ENV['JWT_TOKEN'])
 
-    def create
-      # Create a new user with the provided username
-      user = User.new(username: params[:username])
-
-      # Save the user and redirect to the usernames page with a success or error message
-      if user.save
-        flash[:success] = "Username created successfully"
-        redirect_to usernames_path
-      else
-        flash[:error] = "There was an error creating your username"
-        redirect_to usernames_path
-      end
+      render json: {uid: logged_user }, status: :ok
+    else
+      cannot_login
     end
   end
+
+def update
+  render json: {messages:['You hit the update method'], user:
+  current_user}, status: :ok
+end
+end
+
+private
+def cannot_login
+  render json: {errors: ['invalid email and/or password']}, status: :unauthorized
+end
+

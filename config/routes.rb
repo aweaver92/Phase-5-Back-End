@@ -1,20 +1,26 @@
 Rails.application.routes.draw do
+  resources :test_users
+  resources :items, only: [:index]
+
+  get '/items', to: 'items#index'
   root to: 'home#index'
 
   get '/game', to: 'game#index'
 
-  get '/usernames', to: 'usernames#index'
-  post '/usernames', to: 'sessions#create'
-  patch '/usernames', to: 'usernames#update'
+  get '/users', to: 'users#index'
+  post '/users', to: 'users#create'
+  patch '/users', to: 'users#update'
 
   get '/lobby', to: 'lobby#index'
 
   get '/account', to: 'account#index'
 
-  get '/sign_in', to: 'sessions#new'
+  post '/login', to: "sessions#create", as: 'login'
+  get '/auto_login', to: "sessions#auto_login"
+  get '/login', to: 'sessions#new'
 
-  post '/sign_in', to: 'sessions#create'
 
-  delete '/log_out', to: 'sessions#destroy'
+
+  delete '/log-out', to: 'sessions#destroy'
 
 end
