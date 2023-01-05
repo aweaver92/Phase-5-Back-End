@@ -9,6 +9,12 @@ class UsersController < ApplicationController
     else
       cannot_login
     end
+    if user.save
+      session[:user_id] = user.id
+      render json: { message: "Successfully created user" }
+    else
+      render json: { errors: user.errors.full_messages }, status: :bad_request
+    end
   end
 
 def update
