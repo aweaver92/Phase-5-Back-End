@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  # require 'jwt'
+
   skip_before_action :authorized, only: :create
 
   # def create
@@ -16,12 +16,12 @@ class SessionsController < ApplicationController
   #   end
   # end
 
-  # OLD UNWORKING
   def create
     @user = User.find_by( email: params[:email])
     if @user and @user.authenticate(params[:password])
       logged_user = JWT.encode({user: @user.id}, ENV['JWT_TOKEN'])
-      render json: {uid: logged_user }, status: :ok
+      render json: {uid: logged_user, id: @user.id }, status: :ok
+
     else
       cannot_login
     end

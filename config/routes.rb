@@ -17,10 +17,8 @@ Rails.application.routes.draw do
 
   post '/login', to: "sessions#create", as: 'login'
   get '/auto_login', to: "sessions#auto_login"
-  get '/login', to: 'sessions#new'
-
-
+  # get '/login', to: 'sessions#new'
 
   delete '/log-out', to: 'sessions#destroy'
-
+  get '/jokes', to: "jokes#fetchapi", as: :fetchapi
 end
