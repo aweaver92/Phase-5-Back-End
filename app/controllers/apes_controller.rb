@@ -6,7 +6,7 @@ class ApesController < ApplicationController
     @apes = Ape.all
   end
 
-  # GET /apes/1
+  # GET  /apes/1
   def show
   end
 
